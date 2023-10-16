@@ -1,0 +1,81 @@
+Django comandos
+
+django-admin startproject demodjango
+$ python3 manage.py runserver
+$ python3 manage.py runserver
+Mato todo en el puerto 8000
+sudo lsof -t -i tcp:8000 | xargs kill -9
+//cambio puerto
+python manage.py runserver 8080
+//creo la primera aplicacion
+python manage.py startapp polls
+python3 manage.py makemigration polls
+python manage.py sqlmigrate polls 0001
+
+
+consola interactiva
+
+python3 manage.py shell
+
+//Importo los modelos que voy a ocupar 
+from polls.models import Choice, Question
+
+//Selecciono todo
+Question.objects.all()
+
+// Importo el timezone para timestamp
+from django.utils import timezone
+timezone.now()
+// Insert 
+q = Question(question_text='Cual es tu nombre?', pub_date=timezone.now())
+//Guardamos
+q.save()
+
+/insertamos el choice
+c = Choice(choice_text='Juan', votes=10)
+
+ Choice.objects.all()
+//guardo el id de la relacion
+q.choice.question = q
+
+>>> q.choice.question = q
+>>> q.choice.question 
+<Question: Question object (1)>
+>>> q.choice.question.save
+<bound method Model.save of <Question: Question object (1)>>
+
+
+ q.choice.question = q
+>>> q.choice.question 
+<Question: Question object (1)>
+>>> q.choice.question.save
+<bound method Model.save of <Question: Question object (1)>>
+>>> c.question_id
+1
+>>> Choice.object.all()
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: type object 'Choice' has no attribute 'object'. Did you mean: 'objects'?
+>>> Choice.objects.all()
+<QuerySet []>
+>>> q.choice.question.save()
+>>> Choice.objects.all()
+<QuerySet []>
+>>> q.choice.save()
+>>> c.question
+c.question    c.question_id
+>>> c.question_is
+Traceback (most recent call last):
+  File "<console>", line 1, in <module>
+AttributeError: 'Choice' object has no attribute 'question_is'. Did you mean: 'question_id'?
+>>> c.question_id
+1
+>>> q.choice.save()
+>>> Choice.objects.all()
+<QuerySet [<Choice: Choice object (1)>]>
+>>> 
+
+
+
+
+
